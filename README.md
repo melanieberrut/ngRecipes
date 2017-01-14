@@ -9,5 +9,10 @@ nodemon is a utility that monitor your application files for changes and automat
 On run of nodemon in your terminal, it looks for your package.json for the scripts.start
 nodemon has a verbose mode, for that, in the nodemon.js, add set property verbose to true.
 
+## NoSQL
+ - key-value store
+ - document store ( < used by mongoDB )
+ - graph databased
+
 #other tools used:
 postman
