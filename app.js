@@ -7,23 +7,16 @@ var path = require('path');
 // define property of application
 app.set('port', 3000);
 
+// deliver a number of static file from express
+// define folder for static files
+// when express receive for a route, first thing,
+// check if the route is match by any of the files
+// within that defined folder. If it finds a match,
+// it will deliver directly to the browser, without
+// defining any routes
+// will read: http://localhost:3000/index.html and http://localhost:3000/
+app.use(express.static(path.join(__dirname, 'public')));
 
-// routing: listen to request on specific URLs, do something on the server, sending a response.
-// define http method (get/post)
-// specify path
-// specify the function we need to run on the url
-
-// req: contains the details about the ougoing request
-// res: contains the data/method related to response
-// homepage route:
-app.get('/', function(req, res){
-	console.log('Get the homepage');
-	// send a response
-	// Deliver HTML from express server
-	res
-		.status(200)
-		.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
 
 // return json in the browser, like an API
 app.get('/json', function(req, res){
