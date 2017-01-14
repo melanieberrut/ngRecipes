@@ -16,5 +16,10 @@ router
 	.route('/recipes/:recipeId')
 	.get(ctrlHotels.recipesGetOne);
 
+// route to add a new hotel
+router
+	.route('/recipes/new')
+	.post(ctrlHotels.recipesAddOne);
+
 // export the router
 module.exports = router;

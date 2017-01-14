@@ -45,3 +45,12 @@ module.exports.recipesGetOne = function(req, res){
 	.status(200)
 	.json( thisRecipe );
 };
+
+// read the posted data, send to console.log() and return as json in the reponse
+module.exports.recipesAddOne = function(req, res){
+	console.log('POST new hotel');
+	console.log(req.body);
+	res
+		.status(200)
+		.json(req.body);
+};
