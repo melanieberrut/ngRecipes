@@ -7,24 +7,38 @@ var path = require('path');
 // define property of application
 app.set('port', 3000);
 
-// deliver a number of static file from express
-// define folder for static files
-// when express receive for a route, first thing,
-// check if the route is match by any of the files
-// within that defined folder. If it finds a match,
-// it will deliver directly to the browser, without
-// defining any routes
-// will read: http://localhost:3000/index.html and http://localhost:3000/
+// Create our own middleware (app.use)
+// Parameters: request object,  response object, next
+// position in the app.js matters, it needs to be
+// before the static files
+app.use(function(req, res, next){
+	// check what the method is and what is the URL
+	console.log(req.method, req.url);
+	next();
+});
+// Output in terminal:
+// GET /
+// GET /css/bootstrap.min.css
+// GET /css/custom.css
+// GET /jquery/jquery-3.1.1.min.js
+// GET /images/logo.png
+
+// you could also only restrict to a folder:
+// app.use('/css ',function(req, res, next){
+// 	// check what the method is and what is the URL
+// 	console.log(req.method, req.url);
+// 	next();
+// });
+// Output in terminal:
+// GET /bootstrap.min.css
+// GET /custom.css
+
+// add.use = act as middleware
 app.use(express.static(path.join(__dirname, 'public')));
-// Could also specify sub directories like this:
-// app.use('public', express.static(path.join(__dirname, 'public')));
-// browser will read index on http://localhost:3000/public/index.html
 
 
-// return json in the browser, like an API
 app.get('/json', function(req, res){
 	console.log('Get the json');
-	// send a response
 	res
 		.status(200)
 		.json({"jsonData": true});
@@ -33,18 +47,12 @@ app.get('/json', function(req, res){
 // return file to browser
 app.get('/file', function(req, res){
 	console.log('Get the file');
-	// send a response
 	res
 		.status(200)
 		.sendFile(path.join(__dirname, 'app.js'));
 });
 
-// listen for requests and define port to listen to
-// app.get to retrieve port variable
-// app.listen is asynch, add anynomous function (callback) once app listen is finished running
-// app.listen return object
 var server = app.listen(app.get('port'), function(){
-
 	// extract port number from object
 	var port = server.address().port;
 	console.log("magic happens "+ port);
