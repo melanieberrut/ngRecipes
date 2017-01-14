@@ -16,6 +16,9 @@ app.set('port', 3000);
 // defining any routes
 // will read: http://localhost:3000/index.html and http://localhost:3000/
 app.use(express.static(path.join(__dirname, 'public')));
+// Could also specify sub directories like this:
+// app.use('public', express.static(path.join(__dirname, 'public')));
+// browser will read index on http://localhost:3000/public/index.html
 
 
 // return json in the browser, like an API
