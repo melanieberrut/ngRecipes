@@ -11,5 +11,10 @@ router
 	.route('/recipes')
 	.get(ctrlHotels.recipesGetAll);
 
+// Create a route for a specific recipe
+router
+	.route('/recipes/:recipeId')
+	.get(ctrlHotels.recipesGetOne);
+
 // export the router
 module.exports = router;
