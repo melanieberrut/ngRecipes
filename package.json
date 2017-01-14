@@ -1,0 +1,28 @@
+{
+  "name": "ng-recipes",
+  "version": "1.0.0",
+  "description": "list of recipes",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/melanieberrut/ngRecipes.git"
+  },
+  "keywords": [
+    "mean"
+  ],
+  "author": "MB",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/melanieberrut/ngRecipes/issues"
+  },
+  "homepage": "https://github.com/melanieberrut/ngRecipes#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0"
+  }
+}
