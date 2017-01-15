@@ -1,16 +1,14 @@
 var dbconn = require('../data/db.connection.js');
+var ObjectId = require('mongodb').ObjectId;
 var recipeData = require('../data/recipe-data.json');
 
 // Get all recipes
 module.exports.recipesGetAll = function(req, res){
 
 	var db = dbconn.get();
-	console.log("db", db);
+	// find which collection to use
+	var collection = db.collection('recipes');
 
-	console.log('Get the recipes');
-	console.log(req.query);
-
-	// Set default values for query
 	var offset = 0;
 	var count = 5;
 
@@ -30,25 +28,46 @@ module.exports.recipesGetAll = function(req, res){
 		count = parseInt(req.query.count, 10);
 	}
 
-	// take the data, slide it with the offset (starting point) and offset+count (end point)
-	var returnData = recipeData.slice(offset, offset+count);
+	// find documents
+	// querying the mongodb
+	collection
+		.find()
+		.skip(offset) //define how many docs we are going to skip/offset
+		.limit(count) // set the number of docs we want to return
+		.toArray(function(err, docs){
+			console.log("Found recipes", docs);
 
-	res
-	.status(200)
-	.json( returnData );
+			res
+			.status(200)
+			.json(docs);
+
+		});
+
 };
 
 // Get a specific recipe
 module.exports.recipesGetOne = function(req, res){
+
+	var db = dbconn.get();
+	// find which collection to use
+	var collection = db.collection('recipes');
+
 	// get the recipeID from the req object
 	var recipeId = req.params.recipeId;
 	// use url parameter as location index for the array,
 	// to return in the response
 	var thisRecipe = recipeData[recipeId];
 	console.log('Get recipeId '+ recipeId);
-	res
-	.status(200)
-	.json( thisRecipe );
+
+	collection
+		.findOne({
+			_id: ObjectId(recipeId)
+		}, function(err, doc){
+			res
+			.status(200)
+			.json( doc );
+		});
+
 };
 
 // read the posted data, send to console.log() and return as json in the reponse
