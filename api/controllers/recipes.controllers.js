@@ -1,7 +1,12 @@
+var dbconn = require('../data/db.connection.js');
 var recipeData = require('../data/recipe-data.json');
 
 // Get all recipes
 module.exports.recipesGetAll = function(req, res){
+
+	var db = dbconn.get();
+	console.log("db", db);
+
 	console.log('Get the recipes');
 	console.log(req.query);
 
