@@ -1,11 +1,48 @@
 var mongoose = require('mongoose');
 var Recipe = mongoose.model('Recipe');
 
+var runGeoQuery = function(req, res){
+	// extract values from query string
+	var lng = parseFloat(req.query.lng);
+	var lat = parseFloat(req.query.lat);
+	// create geo Json point
+	var point = {
+		type: "Point",
+		coordinates: [lng, lat]
+	};
+	var geoOptions = {
+		// sphere or flat
+		spherical: true,
+		// limit distance of search
+		maxDistance: 2000,
+		// limit results
+		num: 5
+	};
+
+	// Model.geoNear(GeoJSON, options, [callback])
+	Recipe
+		.geoNear(point, geoOptions, function(err, results, stats){
+			console.log("geo results ", results);
+			console.log("geo tats ", stats);
+			res
+				.status(200)
+				.json(results);
+		});
+
+};
+
 // Get all recipes
 module.exports.recipesGetAll = function(req, res){
 
 	var offset = 0;
 	var count = 5;
+
+	if(req.query && req.query.lat && req.query.lng) {
+		// if query exist
+		console.log("lat" , req.query.lat);
+		runGeoQuery(req, res);
+		return;
+	}
 
 	// extract the value
 	// > Check if the query exist in the request
