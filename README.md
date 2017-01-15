@@ -79,22 +79,21 @@ Import a collection from a db: (do not run on shell)
 
 ## URLs
 how should URL should be structured:
-| Method        | URK                             | Action                              |
-| ------------- |:-------------------------------:| -----------------------------------:|
-| GET           | /api/recipes                    | Get all/multiple recipes            |
-| POST          | /api/recipes                    | Create new recipe                   |
-| GET           | /api/recipes/1234               | Get specific recipe                 |
-| PUT           | /api/recipes/1234               | Update specific recipe              |
-| DELETE        | /api/recipes/1234               | Delete specific recipe              |
-| ------------- |:-------------------------------:| -----------------------------------:|
-| GET           | /api/recipes/1234/reviews       | Get all reviews for specific hotel  |
-| POST          | /api/recipes/1234/reviews       | Add review for specific hotel       |
-| GET           | /api/recipes/1234/reviews/4321  | Get a specific review               |
-| PUT           | /api/recipes/1234/reviews/4321  | Update a specific review            |
-| DELETE        | /api/recipes/1234/reviews/4321  | Delete a specific review            |
 
-
-
+Method | URL                            | Action
+-------|--------------------------------|-----------------------------------
+GET    | /api/recipes                   | Get all multiple recipes
+GET    | /api/recipes                   | Get all/multiple recipes
+POST   | /api/recipes                   | Create new recipe
+GET    | /api/recipes/1234              | Get specific recipe
+PUT    | /api/recipes/1234              | Update specific recipe
+DELETE | /api/recipes/1234              | Delete specific recipe
+-------|--------------------------------|------------------------------------
+GET    | /api/recipes/1234/reviews      | Get all reviews for specific hotel
+POST   | /api/recipes/1234/reviews      | Add review for specific hotel
+GET    | /api/recipes/1234/reviews/4321 | Get a specific review
+PUT    | /api/recipes/1234/reviews/4321 | Update a specific review
+DELETE | /api/recipes/1234/reviews/4321 | Delete a specific review
 
 
 #other tools used:
