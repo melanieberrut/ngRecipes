@@ -113,5 +113,17 @@ Go to the mongo shell:
   }
 )`  update all finds
 
-#other tools used:
+
+## API Design golden rules
+  - Always return a response
+  - return the correct http status code
+  - return contents or a message
+
+## Useful HTTP status codes
+200 - Okay
+400 - Bad request
+404 - Not found
+500 - Internal server error
+
+## Other tools used:
 postman

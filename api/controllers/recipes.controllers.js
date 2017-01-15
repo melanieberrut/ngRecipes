@@ -5,6 +5,17 @@ var runGeoQuery = function(req, res){
 	// extract values from query string
 	var lng = parseFloat(req.query.lng);
 	var lat = parseFloat(req.query.lat);
+
+	// Validate that lng & lat value
+	// in the query string are numbers
+	if( isNaN(lng) || isNaN(lat) ){
+		res
+			.status(400)
+			.json({
+				"message": "If supplied in querystring, lng, and lat must both be numbers"
+			});
+	}
+
 	// create geo Json point
 	var point = {
 		type: "Point",
@@ -24,9 +35,16 @@ var runGeoQuery = function(req, res){
 		.geoNear(point, geoOptions, function(err, results, stats){
 			console.log("geo results ", results);
 			console.log("geo tats ", stats);
-			res
-				.status(200)
-				.json(results);
+
+			if( err ) {
+				res
+					.status(500)
+					.json(err);
+			} else {
+				res
+					.status(200)
+					.json(results);
+			}
 		});
 
 };
@@ -36,10 +54,10 @@ module.exports.recipesGetAll = function(req, res){
 
 	var offset = 0;
 	var count = 5;
+	var maxCount = 10;
 
 	if(req.query && req.query.lat && req.query.lng) {
 		// if query exist
-		console.log("lat" , req.query.lat);
 		runGeoQuery(req, res);
 		return;
 	}
@@ -60,14 +78,45 @@ module.exports.recipesGetAll = function(req, res){
 		count = parseInt(req.query.count, 10);
 	}
 
+	// Validate that offest & count value in the query string
+	// are numbers
+	if (isNaN(offset) || isNaN(count)) {
+		res
+			.status(400)
+			.json({
+				"message": "If supplied in querystring count and offset should be numbers"
+			});
+		return;
+	}
+
+	// Prevent with maximum of request for records
+	if(count > maxCount) {
+		res
+			.status(400)
+			.json({
+				"message": "Count limit of "+ maxCount + " exceeded"
+			});
+		return;
+	}
+
 	Recipe
 		.find()
 		.skip(offset) // define how many docs we are going to skip/offset
 		.limit(count) // set the number of docs we want to return
 		.exec(function(err, recipes){
-			console.log("Found recipes", recipes.length);
-			res
-				.json(recipes);
+
+			if(err) {
+
+				console.log("Error finding recipes");
+				res
+					.status(500)
+					.json(err);
+			} else {
+
+				console.log("Found recipes", recipes.length);
+				res
+					.json(recipes);
+			}
 		});
 
 };
@@ -81,9 +130,30 @@ module.exports.recipesGetOne = function(req, res){
 	Recipe
 		.findById(recipeId)
 		.exec(function(err, doc){
+
+			// Hold the status and message of response
+			var response = {
+				status : 200,
+				message: doc
+			};
+
+			if (err) {
+
+				console.log("Error finding recipe");
+				response.status = 500;
+				response.message = err;
+
+			} else if (!doc) {
+				// if the document is empty
+				response.status = 404;
+				response.message = { "message": "Recipe ID not found"};
+
+			}
+
 			res
-			.status(200)
-			.json( doc );
+				.status(response.status)
+				.json(response.message);
+
 		});
 
 };
