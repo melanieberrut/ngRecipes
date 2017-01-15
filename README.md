@@ -96,5 +96,22 @@ PUT    | /api/recipes/1234/reviews/4321 | Update a specific review
 DELETE | /api/recipes/1234/reviews/4321 | Delete a specific review
 
 
+## More mongo
+We're creating a route for specific review such as : .route('/recipes/:recipeId/reviews/:reviewId'), but in the data, review do not have a an ID.
+Go to the mongo shell:
+
+ - `use dbname`
+ - `db.recipes.update(
+  {},
+  {
+    $set : {
+      "reviews.0._id": ObjectId()
+    }
+  },
+  {
+    multi: true
+  }
+)`  update all finds
+
 #other tools used:
 postman
