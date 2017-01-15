@@ -21,21 +21,61 @@ Different types:
 start mongo : mongod --dbpath /data/db --port 27017
 start shell : mongo
 
-### Useful commands:
-- `shows dbs` see all of the databases
+
+- `show dbs` see all of the databases
 - `use local` use dabate call local
 - `show collections` show the collections in the current database
 - `use dbname` MongoDB you don't really have to do anything to create a database, you just use it for the first time
 - `db.createCollection("tech")`
 - ` db.tech.insert(
-    {
-      name : "MongoDB",
-      role : "Database
-    }
-)` Create a document
+	    {
+	      name : "MongoDB",
+	      role : "Database"
+    	}
+	);` Create a document
 - `db.tech.find()` show us all of the documents in the collection
 - `db.tech.find().pretty()` Making the output more readable
 
+Interacting with data from the command line
+
+- `db.tech.find({"_id" : ObjectId("587ac50d8f399aa288a6cac9")})` query object
+- `db.tech.find({"name" : "Angular"})` query property name
+- `db.tech.find().sort({"name": 1})` sorting results, ascending = 1, descending = -1
+- `db.tech.find({}, {"name" : true })` return only the value on one selected property
+- `db.tech.find({}, {"name" : true , "_id": false })` return only the value on one selected property, without object id
+- `db.tech.update(
+	{ "name": "Angular" },
+	{ $set : { "name": "AngularJS" }})` updating (single) document, only first instance/occurance will be updated
+- `db.tech.update(
+	{},
+	{ $set : { "language": "JavaScript" }},
+	{ multi: true }) update all the documents in the collection
+- `db.tech.remove( { "name": "Express" } )` deleting document
+- `db.tech.remove({})` deleting all collections
+- `db.tech.drop()` delete entire collection from db (ex: tech), use drop
+
+Two options to create a binary export of a DB:
+
+ 1) bson/json
+ - `mongodump` specify the db otherwise will affect all
+ - `cd dumb` and `ls` locate the data, by default set on same directory
+ - `cd dbname` and `ls` list the data, will show a .bson and .json versions
+
+ 2) gziped
+ - `mongodump --db dbname --gzip` options to gzip the results when db very large
+
+How to restore db that has been just exported:
+- `mongorestore --db newdbname --gzip dump/dbname`
+Please note mongorestore only insert in db and does not update
+
+Export a collection from a db: (do not run on shell)
+- `mongoexport --db dbname --collection tech` export in console log only
+- `mongoexport --db dbname --collection tech --out /Users/pathto/MEAN/api/data/tech.json` the actual output is not a valid json
+- `mongoexport --db dbname --collection tech --jsonArray --out /Users/pathto/MEAN/api/data/tech.json` minified
+- `mongoexport --db dbname --collection tech --jsonArray --out /Users/pathto/MEAN/api/data/tech.json --pretty` prettified
+
+Import a collection from a db: (do not run on shell)
+- `mongoimport --db dbname --collection tech --jsonArray /Users/pathto/MEAN/api/data/tech.json`
 
 
 #other tools used:
