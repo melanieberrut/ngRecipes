@@ -14,17 +14,13 @@ var ctrlReviews = require('../controllers/reviews.controllers.js');
 // mapping a controller to a route
 router
 	.route('/recipes')
-	.get(ctrlRecipes.recipesGetAll);
+	.get(ctrlRecipes.recipesGetAll)
+	.post(ctrlRecipes.recipesAddOne); // add a new hotel
 
 // Create a route for a specific recipe
 router
 	.route('/recipes/:recipeId')
 	.get(ctrlRecipes.recipesGetOne);
-
-// route to add a new hotel
-router
-	.route('/recipes/new')
-	.post(ctrlRecipes.recipesAddOne);
 
 
 // ***
@@ -33,7 +29,8 @@ router
 
 router
 	.route('/recipes/:recipeId/reviews')
-	.get(ctrlReviews.reviewsGetAll);
+	.get(ctrlReviews.reviewsGetAll)
+	.post(ctrlReviews.reviewsAddOne);
 
 router
 	.route('/recipes/:recipeId/reviews/:reviewId')

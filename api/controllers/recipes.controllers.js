@@ -161,32 +161,46 @@ module.exports.recipesGetOne = function(req, res){
 // read the posted data, send to console.log() and return as json in the reponse
 module.exports.recipesAddOne = function(req, res){
 
-	var db = dbconn.get();
-	// find which collection to use
-	var collection = db.collection('recipes');
-	var newRecipe;
+	console.log('POST new Recipe');
 
-	console.log('POST new hotel');
-	// simple validation for property name and stars
-	if( req.body && req.body.name && req.body.stars ){
-		newRecipe = req.body;
-		newRecipe.stars = parseInt(req.body.stars, 10);
-		console.log("body ", newRecipe);
-		collection.insertOne(newRecipe, function(err, response){
-			console.log("response ", response);
-			console.log("response.ops ", response.ops);
-			// if success: send
-			res
-				.status(201) // status for new being added
-				.json(response.ops);
+	var _slitArray = function(input){
+		var output;
+		if (input && input.length > 0) {
+			output = input.split(";");
+		} else {
+			output = [];
+		}
+		return output;
+	};
+
+	Recipe
+		.create({
+			name: req.body.name,
+			description: req.body.description,
+			stars: parseInt(req.body.stars, 10),
+			services: _slitArray(req.body.services), // convert string into array
+			photos: _slitArray(req.body.photos), // convert string into array
+			currency: req.body.currency,
+			location: {
+				address: req.body.address,
+				coordinates: [parseFloat(req.body.lng), parseFloat(req.body.lat)]
+			}
+
+		}, function(err, recipe){
+			// run when create method completed
+
+			if(err) {
+				console.log("Error creating recipe: "+ err);
+				res
+					.status(400)
+					.json(err);
+			} else {
+				console.log("Recipe created ", recipe);
+				res
+					.status(201)
+					.json(recipe);
+			}
+
 		});
-	} else {
-		// if undefined, return 400 and error msg
-		console.info('Data is missing from body');
-		res
-			.status(400)
-			.json({ message : "Required data missing from body" });
-
-	}
 
 };
