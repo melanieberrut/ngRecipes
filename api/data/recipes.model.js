@@ -57,7 +57,7 @@ var recipeSchema = new mongoose.Schema({
 		address: String,
 		// longitude (E/W) first, latitude (N/S) second
 		coordinates: {
-			type: Number,
+			type: [Number],
 			index: '2dsphere'// to use for location based search
 		},
 
