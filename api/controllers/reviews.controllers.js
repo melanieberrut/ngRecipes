@@ -137,8 +137,78 @@ module.exports.reviewsAddOne = function(req, res){
 				res
 					.status( response.status )
 					.json( response.message );
-				
 			}
 
+		});
+};
+
+
+// Update specific recipe
+module.exports.reviewsUpdateOne = function(req, res){
+	// extract IDs
+	var recipeId = req.params.recipeId;
+	var reviewId = req.params.reviewId;
+	// console.log("PUT reviewId " + reviewId + " for recipeId " + recipeId );
+
+	Recipe
+		.findById(recipeId)
+		.select('reviews') // restrict to return not the whole recipe but just the reviews
+		.exec(function(err, recipe){
+			console.log("Start updating review");
+
+			var response = {
+				status : 200,
+				message : {}
+			};
+
+			if ( err ) {
+				console.log("Error getting recipe");
+				response.status = 500;
+				response.message = err;
+
+			} else if (!recipe) {
+				console.log("Recipe is not found in DB ", recipeId);
+				response.status = 404;
+				response.message = { "message": "recipeId is not found in DB " + recipeId };
+
+			} else {
+				// Get the review
+				thisReview = recipe.reviews.id(reviewId);
+				console.log("thisReview ",thisReview);
+				// If the review doesn't exist Mongoose returns null
+				if (!thisReview) {
+					response.status = 404;
+					response.message = {
+						"message" : "Review ID not found " + reviewId
+					};
+				}
+			}
+
+			if (response.status !== 200) {
+				res
+					.status(response.status)
+					.json(response.message);
+			} else {
+				thisReview.name   = req.body.name;
+				thisReview.rating = parseInt(req.body.rating, 10);
+				thisReview.review = req.body.review;
+
+				console.log("thisReview ", thisReview);
+
+				recipe.save(function(err, recipeUpdated){
+					if( err ){
+						console.log("Error saving the model");
+						res
+							.status(500)
+							.json(err);
+					} else {
+						console.log("Review Updated");
+						res
+							.status(204)
+							.json(); //empty
+
+					}
+				});
+			}
 		});
 };

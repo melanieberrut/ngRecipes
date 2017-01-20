@@ -158,12 +158,7 @@ module.exports.recipesGetOne = function(req, res){
 
 };
 
-// read the posted data, send to console.log() and return as json in the reponse
-module.exports.recipesAddOne = function(req, res){
-
-	console.log('POST new Recipe');
-
-	var _slitArray = function(input){
+var _slitArray = function(input){
 		var output;
 		if (input && input.length > 0) {
 			output = input.split(";");
@@ -172,6 +167,11 @@ module.exports.recipesAddOne = function(req, res){
 		}
 		return output;
 	};
+
+// read the posted data, send to console.log() and return as json in the reponse
+module.exports.recipesAddOne = function(req, res){
+
+	console.log('POST new Recipe');
 
 	Recipe
 		.create({
@@ -200,6 +200,71 @@ module.exports.recipesAddOne = function(req, res){
 					.status(201)
 					.json(recipe);
 			}
+
+		});
+
+};
+
+// Update specific recipe
+module.exports.recipesUpdateOne = function(req, res){
+	// update the specific document
+
+	// get the recipeID from the req object
+	var recipeId = req.params.recipeId;
+
+	Recipe
+		// 1- Find specific document to create a model instance
+		.findById(recipeId)
+		.select("-reviews -rooms")  // exclide reviews and rooms
+		.exec(function(err, recipe){
+			console.log("recipesUpdateOne ", recipe);
+
+			if (err) {
+				console.log("Error finding recipe");
+				res
+				.status(500)
+				.json(err);
+				return;
+			} else if(!recipe) {
+				console.log("recipeId not found in database", recipeId);
+				res
+				.status(404)
+				.json({
+					"message" : "Recipe ID not found " + recipeId
+				});
+				return;
+			}
+
+
+			// 2- update model data instance
+			recipe.name        = req.body.name;
+			recipe.description = req.body.description;
+			recipe.stars       = parseInt(req.body.stars, 10);
+			recipe.services    = _slitArray(req.body.services); // convert string into array
+			recipe.photos      = _slitArray(req.body.photos); // convert string into array
+			recipe.currency    = req.body.currency;
+			recipe.location    = {
+				address: req.body.address,
+				coordinates: [parseFloat(req.body.lng), parseFloat(req.body.lat)]
+			};
+
+			// 3- Save model to mongoDB
+			recipe.save(function(err, recipeUpdated){
+
+				if( err ){
+					console.log("Error saving the model");
+					res
+						.status(500)
+						.json(err);
+				} else {
+					console.log(">>> recipeUpdated ", recipeUpdated);
+					console.log("Updated");
+					res
+						.status(204)
+						.json(); //empty
+				}
+			});
+
 
 		});
 

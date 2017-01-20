@@ -20,7 +20,8 @@ router
 // Create a route for a specific recipe
 router
 	.route('/recipes/:recipeId')
-	.get(ctrlRecipes.recipesGetOne);
+	.get(ctrlRecipes.recipesGetOne)
+	.put(ctrlRecipes.recipesUpdateOne);
 
 
 // ***
@@ -34,7 +35,8 @@ router
 
 router
 	.route('/recipes/:recipeId/reviews/:reviewId')
-	.get(ctrlReviews.reviewsGetOne);
+	.get(ctrlReviews.reviewsGetOne)
+	.put(ctrlReviews.reviewsUpdateOne);
 
 
 // export the router
