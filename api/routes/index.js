@@ -21,7 +21,8 @@ router
 router
 	.route('/recipes/:recipeId')
 	.get(ctrlRecipes.recipesGetOne)
-	.put(ctrlRecipes.recipesUpdateOne);
+	.put(ctrlRecipes.recipesUpdateOne)
+	.delete(ctrlRecipes.recipesDeleteOne);
 
 
 // ***
@@ -36,7 +37,8 @@ router
 router
 	.route('/recipes/:recipeId/reviews/:reviewId')
 	.get(ctrlReviews.reviewsGetOne)
-	.put(ctrlReviews.reviewsUpdateOne);
+	.put(ctrlReviews.reviewsUpdateOne)
+	.delete(ctrlReviews.reviewsDeleteOne);
 
 
 // export the router

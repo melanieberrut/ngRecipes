@@ -269,3 +269,26 @@ module.exports.recipesUpdateOne = function(req, res){
 		});
 
 };
+
+// delete specific recipe
+module.exports.recipesDeleteOne = function(req, res){
+
+	// get the recipeID from the req object
+	var recipeId = req.params.recipeId;
+
+	Recipe
+		// 1- Find specific document to create a model instance
+		.findByIdAndRemove(recipeId)
+		.exec(function(err, recipe){
+			if( err ) {
+				res
+					.status(404)
+					.json(err);
+			} else {
+				console.log("Recipe deleted, id: ", recipeId);
+				res
+					.status(204)
+					.json();
+			}
+		});
+};
