@@ -1,4 +1,12 @@
 <h1>Main page</h1>
+
+<p>hello, {{ vm.name | reverse }}</p>
+
+<p>{{ vm.date1 | dateSuffix }}</p>
+<p>{{ vm.date2 | dateSuffix }}</p>
+<p>{{ vm.date3 | dateSuffix }}</p>
+<p>{{ vm.date4 | dateSuffix }}</p>
+
 <ul>
 	<li data-ng-repeat="recipe in vm.recipes">{{ recipe.name }}</li>
 </ul>
