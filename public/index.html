@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html lang="en" data-ng-app>
+<html lang="en" data-ng-app="myRecipes">
 <head>
   <meta charset="utf-8">
 
@@ -11,12 +11,12 @@
 
 <body>
 
-	<h1>Mean Recipes homepage</h1>
+	<div ng-view></div>
 
 	<footer class="footer">
 		<div class="container">
 			<p class="text-muted text-center">
-				<a><img src="/images/logo.png" height="26" alt="Full Stack Training"/></a>
+				<a><img src="images/logo.png" height="26" alt="Full Stack Training"/></a>
 			</p>
 
 			<p class="text-muted text-center">
@@ -24,7 +24,13 @@
 			</p>
 		</div>
 	</footer>
-	<script src="angular/angular.js"></script>
+
+	<script src="angular/_libraries/angular.js"></script>
+	<script src="angular/_libraries/angular-route.js"></script>
+	<script src="angular/app.js"></script>
+	<script src="angular/route.js"></script>
+	<script src="angular/main/main.controller.js"></script>
+	<script src="angular/recipe/recipe.controller.js"></script>
 	<script src="jquery/jquery-3.1.1.min.js"></script>
 </body>
 </html>
