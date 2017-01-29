@@ -16,6 +16,8 @@ app.use(function(req, res, next){
 
 // add.use = act as middleware
 app.use(express.static(path.join(__dirname, 'public')));
+// allow node module folder
+app.use('/node_modules', express.static(path.join(__dirname + '/node_modules')));
 
 // use middleware to get form body
 // > method: urlencoded - method how html form sends
