@@ -3,6 +3,8 @@ angular.module('myRecipes').controller('MainController', ['$scope', 'RecipeFacto
     var vm = this;
     vm.name = 'Melanie';
 
+    vm.urlDetailPreffixer = '#/recipe/';
+
     RecipeFactory.getAllRecipes().then(function(response){
     	vm.recipes = response;
     	vm.date1 = '12 Februrary 2016';

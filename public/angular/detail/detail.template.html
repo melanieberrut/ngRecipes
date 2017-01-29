@@ -1,0 +1,82 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="jumbotron">
+			<h1>{{ vm.recipe.name }}, <recipe-rating stars="vm.stars"/></h1>
+			<p><small>{{ vm.recipe.location.address }}</small></p>
+			<p>{{ vm.recipe.description }}</p>
+			<p>Price: {{ vm.recipe.price }}</p>
+			<p>Services:
+				<ul>
+					<li data-ng-repeat="service in vm.recipe.services">{{ service }}</li>
+				</ul>
+			</p>
+		</div>
+
+		<h2>Recipe Reviews:</h2>
+		<ul>
+			<li data-ng-repeat="review in vm.recipe.reviews">
+				<strong>{{ review.name }}: </strong>
+				<span>{{ review.review }}</span>
+			</li>
+		</ul>
+
+	</div>
+
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="well">
+			<form class="form-horizontal" name="vm.reviewForm" data-ng-submit="vm.addReview()">
+				<fieldset>
+				<legend>Submit a Review</legend>
+					<div class="form-group">
+						<label for="inputEmail" class="col-lg-2 control-label">Your name:</label>
+						<div class="col-lg-10">
+							<input type="text" name="name" required="true" data-ng-minlength="2" data-ng-model="vm.name">
+							<div data-ng-show="vm.reviewForm.name.$dirty && vm.reviewForm.name.$invalid && vm.isSubmitted">
+								<p>Name should be more than 2 characters long</p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword" class="col-lg-2 control-label">Your rating:</label>
+						<div class="col-lg-10">
+							<input type="number" name="rating" required="true" data-ng-pattern="/^[1-5]$/" data-ng-model="vm.rating">
+							<div data-ng-show="vm.reviewForm.rating.$dirty && vm.reviewForm.rating.$invalid && vm.isSubmitted">
+								<p>Rating must be between 1-5</p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="textArea" class="col-lg-2 control-label">Your review:</label>
+						<div class="col-lg-10">
+							<textarea type="text" name="review" required="true" data-ng-model="vm.review"></textarea>
+							<div data-ng-show="vm.reviewForm.review.$dirty && vm.reviewForm.review.$invalid && vm.isSubmitted">
+								<p>Please add a review</p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-lg-10 col-lg-offset-2">
+							<button type="submit" class="btn">Add Review</button>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+
+</div>
+
+
+<!-- Reviews:
+
+<blockquote>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+  <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+</blockquote>
+
+<blockquote class="blockquote-reverse">
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+  <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+</blockquote>
+
+ -->

@@ -18,12 +18,17 @@ app.use(function(req, res, next){
 app.use(express.static(path.join(__dirname, 'public')));
 // allow node module folder
 app.use('/node_modules', express.static(path.join(__dirname + '/node_modules')));
+// allow fonts folder
+app.use('/fonts', express.static(path.join(__dirname + '/fonts')));
 
 // use middleware to get form body
 // > method: urlencoded - method how html form sends
 // > options: extended: true/false, false to only need
 //            string and arrays from the form
 app.use(bodyParser.urlencoded({ extended : false }));
+// Tell API to understand JSON data
+app.use(bodyParser.json());
+
 
 app.use('/api', routes);
 
