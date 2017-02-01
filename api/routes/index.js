@@ -6,6 +6,7 @@ var router = express.Router();
 
 var ctrlRecipes = require('../controllers/recipes.controllers.js');
 var ctrlReviews = require('../controllers/reviews.controllers.js');
+var ctrlUsers   = require('../controllers/users.controllers.js');
 
 // ***
 // Recipes
@@ -40,6 +41,18 @@ router
 	.put(ctrlReviews.reviewsUpdateOne)
 	.delete(ctrlReviews.reviewsDeleteOne);
 
+
+// ***
+// Authentication
+// ***
+
+router
+	.route('/users/register')
+	.post(ctrlUsers.register);
+
+router
+	.route('/users/login')
+	.post(ctrlUsers.login);
 
 // export the router
 module.exports = router;

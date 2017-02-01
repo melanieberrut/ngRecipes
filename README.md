@@ -128,6 +128,14 @@ Go to the mongo shell:
 
 #AngularJS
 
+#Authentication
+
+Token based authentication:
+Server send the site to the client, the client then authenticate and send the username and password to the server. If the combination of username/password is correct, the server generate a token. This token is stored client side.
+All future request going from client to server will be using the token. By using token, the server knows if the request is valid or not.
+
+JWT: Json Web Token
+'Header'.'Payload'.'Signature' : payload can contain any form of data, like 'username'
 
 ## Other tools used:
 postman
