@@ -11,6 +11,11 @@ angular.module('myRecipes').config(['$routeProvider',
 			controller: 'RecipeController',
 			controllerAs: 'vm'
 		})
+		.when('/register', {
+			templateUrl: '../angular/register/register.template.html',
+			controller: 'RegisterController',
+			controllerAs: 'vm'
+		})
 		.otherwise({
 			redirectTo: '/'
 		});

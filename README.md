@@ -137,5 +137,8 @@ All future request going from client to server will be using the token. By using
 JWT: Json Web Token
 'Header'.'Payload'.'Signature' : payload can contain any form of data, like 'username'
 
+For debugging:
+http://jwt.io
+
 ## Other tools used:
 postman
