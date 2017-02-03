@@ -83,7 +83,6 @@ how should URL should be structured:
 Method | URL                            | Action
 -------|--------------------------------|-----------------------------------
 GET    | /api/recipes                   | Get all multiple recipes
-GET    | /api/recipes                   | Get all/multiple recipes
 POST   | /api/recipes                   | Create new recipe
 GET    | /api/recipes/1234              | Get specific recipe
 PUT    | /api/recipes/1234              | Update specific recipe

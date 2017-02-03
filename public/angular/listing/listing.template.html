@@ -1,9 +1,9 @@
-<h1>Main page</h1>
+<h1>Listing page</h1>
 
 <div class="row">
 	<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
 		<div class="list-group">
-			<a href="{{ vm.urlDetailPreffixer + recipe._id }}" data-ng-repeat="recipe in vm.recipes" class="list-group-item">
+			<a href="{{ vm.urlDetailPreffixer + recipe._id }}" data-ng-repeat="recipe in vm.recipes track by $index" class="list-group-item">
 				{{ recipe.name }}
 			</a>
 		</div>

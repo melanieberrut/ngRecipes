@@ -3,4 +3,4 @@
 // Angular
 // ***
 
-angular.module('myRecipes', ['ngRoute']);
+angular.module('myRecipes', ['ngRoute', 'angular-jwt']);

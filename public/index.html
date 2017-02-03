@@ -10,8 +10,10 @@
 </head>
 
 <body>
-
-	<div ng-view></div>
+	<div class="container">
+		<main-navigation></main-navigation>
+		<div ng-view></div>
+	</div>
 
 	<footer class="footer">
 		<div class="container">
@@ -28,6 +30,7 @@
 	<!-- Angular Libraries -->
 	<script src="node_modules/angular/angular.js"></script>
 	<script src="node_modules/angular-route/angular-route.js"></script>
+	<script src="node_modules/angular-jwt/dist/angular-jwt.js"></script>
 
 	<!-- SPA -->
 	<script src="angular/app.js"></script>
@@ -37,12 +40,16 @@
 	<script src="angular/listing/listing.controller.js"></script>
 	<script src="angular/detail/detail.controller.js"></script>
 	<script src="angular/register/register.controller.js"></script>
+	<script src="angular/login/login.controller.js"></script>
 
 	<!-- Directive -->
 	<script src="angular/_directives/ratings.js"></script>
+	<script src="angular/_directives/navigations/main-navigation.js"></script>
 
 	<!-- Factories -->
 	<script src="angular/_factories/recipe.js"></script>
+	<script src="angular/_factories/authentication-interceptor.js"></script>
+	<script src="angular/_factories/auth.js"></script>
 
 	<!-- Filters -->
 	<script src="angular/_filters/reverse.js"></script>
