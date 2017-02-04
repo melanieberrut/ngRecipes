@@ -15,7 +15,7 @@ var ctrlUsers   = require('../controllers/users.controllers.js');
 // mapping a controller to a route
 router
 	.route('/recipes')
-	.get(ctrlUsers.authenticate, ctrlRecipes.recipesGetAll)
+	.get(ctrlRecipes.recipesGetAll) // restrict auth listing: .get(ctrlUsers.authenticate, ctrlRecipes.recipesGetAll)
 	.post(ctrlRecipes.recipesAddOne); // add a new hotel
 
 // Create a route for a specific recipe
