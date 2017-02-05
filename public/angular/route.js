@@ -1,5 +1,5 @@
-angular.module('myRecipes').config(['$routeProvider', '$httpProvider',
-	function($routeProvider, $httpProvider) {
+angular.module('myRecipes').config(['$routeProvider', '$httpProvider', '$locationProvider',
+	function($routeProvider, $httpProvider, $locationProvider) {
 
 		// Custom interceptor
 		$httpProvider.interceptors.push('AuthInterceptor');
@@ -46,6 +46,9 @@ angular.module('myRecipes').config(['$routeProvider', '$httpProvider',
 		.otherwise({
 			redirectTo: '/'
 		});
+
+		$locationProvider.html5Mode(true);
+
 	}]);
 
 
