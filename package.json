@@ -21,8 +21,11 @@
   },
   "homepage": "https://github.com/melanieberrut/ngRecipes#readme",
   "dependencies": {
+    "angular-jwt": "^0.1.9",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "jsonwebtoken": "^7.2.1",
     "mongodb": "^2.2.21",
     "mongoose": "^4.7.6"
   },
