@@ -17,7 +17,6 @@ function AuthInterceptor($location, $q, $window, AuthFactory){
 			// if present, attach the token to the request using auth header
 			config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
 		}
-		console.log("1");
 		return config;
 	}
 
@@ -29,7 +28,6 @@ function AuthInterceptor($location, $q, $window, AuthFactory){
 		if(response.status === 401) {
 			AuthFactory.isLoggedIn = false;
 		}
-		console.log("2");
 		return response || $q.when(response);
 	}
 
@@ -39,7 +37,6 @@ function AuthInterceptor($location, $q, $window, AuthFactory){
 			AuthFactory.isLoggedIn = false;
 			$location.path('/');
 		}
-		console.log("3");
 		return $q.reject(rejection);
 	}
 

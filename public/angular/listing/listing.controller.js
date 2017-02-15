@@ -3,7 +3,7 @@ angular.module('myRecipes').controller('MainController', ['$scope', 'RecipeFacto
     var vm = this;
     vm.name = 'Melanie';
 
-    vm.urlDetailPreffixer = '#/recipe/';
+    vm.urlDetailPreffixer = '/recipes/';
 
     RecipeFactory.getAllRecipes().then(function(response){
     	vm.recipes = response;

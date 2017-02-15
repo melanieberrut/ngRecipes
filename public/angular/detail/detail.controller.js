@@ -5,7 +5,6 @@ angular.module('myRecipes').controller('RecipeController', ['$scope', 'RecipeFac
     RecipeFactory.getOneRecipe(id).then(function(response){
     	vm.recipe = response;
     	vm.stars = _getStarRating(vm.recipe.stars);
-    	console.log("vm.recipe ", vm.recipe );
     });
 
     // helper function
