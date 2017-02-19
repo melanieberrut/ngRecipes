@@ -7,12 +7,13 @@
   <title>MEAN Recipes</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/custom.css">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico" />
 </head>
 
 <body>
 	<div class="container">
 		<main-navigation></main-navigation>
-		<div ng-view></div>
+		<ui-view></ui-view>
 	</div>
 
 	<footer class="footer">
@@ -29,7 +30,7 @@
 
 	<!-- Angular Libraries -->
 	<script src="node_modules/angular/angular.js"></script>
-	<script src="node_modules/angular-route/angular-route.js"></script>
+	<script src="node_modules/angular-ui-router/release/angular-ui-router.js"></script>
 	<script src="node_modules/angular-jwt/dist/angular-jwt.js"></script>
 
 	<!-- SPA -->

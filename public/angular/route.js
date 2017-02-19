@@ -1,17 +1,19 @@
-angular.module('myRecipes').config(['$routeProvider', '$httpProvider', '$locationProvider',
-	function($routeProvider, $httpProvider, $locationProvider) {
+angular.module('myRecipes').config(['$stateProvider', '$locationProvider',
+	function($stateProvider, $locationProvider) {
 
 		// Custom interceptor
-		$httpProvider.interceptors.push('AuthInterceptor');
+		// $httpProvider.interceptors.push('AuthInterceptor');
 
-		$routeProvider
-		.when('/', {
+		$stateProvider
+		.state('/', {
+			url: '/',
 			templateUrl: '../angular/home/home.template.html',
 			access: {
 				restricted: false
 			}
 		})
-		.when('/recipes', {
+		.state('/recipes', {
+			url: '/recipes',
 			templateUrl: '../angular/listing/listing.template.html',
 			controller: 'MainController',
 			controllerAs: 'vm',
@@ -19,7 +21,8 @@ angular.module('myRecipes').config(['$routeProvider', '$httpProvider', '$locatio
 				restricted: false
 			}
 		})
-		.when('/recipes/:id', {
+		.state('/recipes/:id', {
+			url: '/recipes/{id}',
 			templateUrl: '../angular/detail/detail.template.html',
 			controller: 'RecipeController',
 			controllerAs: 'vm',
@@ -27,7 +30,8 @@ angular.module('myRecipes').config(['$routeProvider', '$httpProvider', '$locatio
 				restricted: false
 			}
 		})
-		.when('/register', {
+		.state('/register', {
+			url: '/register',
 			templateUrl: '../angular/register/register.template.html',
 			controller: 'RegisterController',
 			controllerAs: 'vm',
@@ -35,16 +39,14 @@ angular.module('myRecipes').config(['$routeProvider', '$httpProvider', '$locatio
 				restricted: false
 			}
 		})
-		.when('/profile', {
+		.state('/profile', {
+			url: '/profile',
 			templateUrl: '../angular/profile/profile.template.html',
 			controller: 'RegisterController',
 			controllerAs: 'vm',
 			access: {
 				restricted: true
 			}
-		})
-		.otherwise({
-			redirectTo: '/'
 		});
 
 		$locationProvider.html5Mode(true);

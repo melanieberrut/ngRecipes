@@ -1,4 +1,4 @@
-angular.module('myRecipes').controller('MainController', ['$scope', 'RecipeFactory', function($scope, RecipeFactory) {
+angular.module('myRecipes').controller('MainController', ['RecipeFactory', function( RecipeFactory) {
 
     var vm = this;
     vm.name = 'Melanie';
@@ -6,7 +6,7 @@ angular.module('myRecipes').controller('MainController', ['$scope', 'RecipeFacto
     vm.urlDetailPreffixer = '/recipes/';
 
     RecipeFactory.getAllRecipes().then(function(response){
-    	vm.recipes = response;
+    	vm.recipes = response.data;
     	vm.date1 = '12 Februrary 2016';
     	vm.date2 = '11 March 2016';
     	vm.date3 = '03 January 2016';

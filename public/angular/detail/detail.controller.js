@@ -1,9 +1,10 @@
-angular.module('myRecipes').controller('RecipeController', ['$scope', 'RecipeFactory', '$routeParams', function($scope, RecipeFactory, $routeParams) {
+angular.module('myRecipes').controller('RecipeController', [ 'RecipeFactory', '$stateParams', function(RecipeFactory, $stateParams) {
     var vm = this;
-    var id = $routeParams.id;
+    var id = $stateParams.id;
+
 
     RecipeFactory.getOneRecipe(id).then(function(response){
-    	vm.recipe = response;
+    	vm.recipe = response.data;
     	vm.stars = _getStarRating(vm.recipe.stars);
     });
 

@@ -4,7 +4,7 @@ var app = express();
 var path = require('path');
 var routes = require('./api/routes');
 var bodyParser = require('body-parser');
-
+var router = express.Router();
 // define property of application
 app.set('port', 3000);
 
@@ -31,6 +31,11 @@ app.use(bodyParser.json());
 
 
 app.use('/api', routes);
+
+// Just send the index.html for other files to support HTML5Mode
+app.all('*', function(req, res) {
+    res.sendFile( 'index.html', { root: path.join(__dirname, '/public/') } );
+});
 
 var server = app.listen(app.get('port'), function(){
 	// extract port number from object
